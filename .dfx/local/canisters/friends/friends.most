@@ -1,0 +1,9 @@
+// Version: 1.0.0
+type Friend = {canisterId : Principal; name : Text};
+type FriendRequest =
+  {id : Nat; message : Text; name : Text; sender : Principal};
+actor {
+  stable var friendRequestId : Nat;
+  stable var friendRequests : [FriendRequest];
+  stable var friends : [Friend]
+};

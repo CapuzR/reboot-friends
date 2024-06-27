@@ -1,0 +1,8 @@
+{
+    "canisters": {
+        "friends" : {
+            "main" : "src/main.mo",
+            "type" : "motoko"
+        }
+    }
+}

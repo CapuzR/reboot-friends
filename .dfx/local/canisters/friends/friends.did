@@ -1,0 +1,44 @@
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type FriendsCanister = 
+ service {
+   reboot_friends_getFriendRequests: () -> (vec FriendRequest) query;
+   reboot_friends_getFriends: () -> (vec Friend);
+   reboot_friends_handleFriendRequest: (nat, bool) -> (Result);
+   reboot_friends_receiveFriendRequest: (text, text) -> (FriendRequestResult);
+   reboot_friends_removeFriend: (principal) -> (Result);
+   reboot_friends_sendFriendRequest: (principal, text) ->
+    (FriendRequestResult);
+   reboot_supportedStandards: () ->
+    (vec record {
+           name: text;
+           url: text;
+         }) query;
+ };
+type FriendRequestResult = 
+ variant {
+   err: FriendRequestError;
+   ok;
+ };
+type FriendRequestError = 
+ variant {
+   AlreadyFriend;
+   AlreadyRequested;
+   NotEnoughCycles;
+ };
+type FriendRequest = 
+ record {
+   id: nat;
+   message: text;
+   name: text;
+   sender: principal;
+ };
+type Friend = 
+ record {
+   canisterId: principal;
+   name: text;
+ };
+service : (text) -> FriendsCanister
